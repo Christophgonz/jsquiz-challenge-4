@@ -1,0 +1,35 @@
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+#highscores {
+  flex: 0 0 50%;
+  color: plum;
+}
+
+#timer {
+  text-align: right;
+  flex: 0 0 50%;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#title {
+  font-size: 30px;
+  text-align: center;
+}
+#start-button {
+  font-size: 20px;
+  background-color: purple;
+  color: white;
+  border: 1px solid black;
+  text-align: center;
+  padding: 5px;
+  width: 10%;
+}

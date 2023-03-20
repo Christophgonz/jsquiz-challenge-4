@@ -2,13 +2,24 @@ var quizShow = document.querySelector("#questions");
 var title = document.querySelector("#title");
 var scoreMenu = document.querySelector("#highscores");
 var startButton = document.querySelector("#start-button");
+var timer = document.querySelector("#timer");
 
-function hideTitle() {
-  title.setAttribute("style", "display: none;");
+var titleShowing = true;
+
+function toggleTitle() {
+  if (titleShowing) {
+    title.setAttribute("style", "display: none;");
+    startButton.setAttribute("style", "display: none;");
+    titleShowing = false;
+  } else {
+    title.setAttribute("style", "display: block;");
+    startButton.setAttribute("style", "display: block;");
+    titleShowing = true;
+  }
 }
 
-function showTitle() {
-  title.setAttribute("style", "display: block;");
+function showScores() {
+  toggleTitle();
 }
 
 var questions = [
@@ -52,4 +63,5 @@ var questions = [
 
 var questionNo = 0;
 
-startButton.addEventListener("click", hideTitle);
+startButton.addEventListener("click", toggleTitle);
+scoreMenu.addEventListener("click", showScores);
