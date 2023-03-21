@@ -6,6 +6,8 @@ var timer = document.querySelector("#timer");
 var main = document.querySelector("main");
 var scores = document.querySelector("#scores");
 
+var timeRemain = 0;
+
 var titleShowing = true;
 var scoresShowing = false;
 
@@ -36,20 +38,19 @@ var questionNo = 0;
 
 function displayQuestion(qNo) {
   var qContent = questions[qNo];
-  scores.children[0].textContent = qContent.title;
+  quizShow.children[0].textContent = qContent.title;
   for (let i = 0; i < qContent.choices.length; i++) {
     var li = document.createElement("li");
     li.textContent = qContent.choices[i];
-    scores.children[1].appendChild(li);
+    quizShow.children[1].appendChild(li);
   }
-  nextQuestion();
 }
 
 function removeQuestions(qNo) {
   var qContent = questions[qNo];
-  scores.children[0].textContent = "";
+  quizShow.children[0].textContent = "";
   for (let i = qContent.choices.length - 1; i >= 0; i--) {
-    scores.children[1].children[i].remove();
+    quizShow.children[1].children[i].remove();
   }
 }
 
@@ -60,16 +61,51 @@ function nextQuestion() {
     displayQuestion(questionNo);
   } else {
     questionNo = 0;
+    timeRemain = 0;
+    toggleTitle();
   }
 }
 
 function startGame() {
-  debugger;
-  displayQuestion(questionNo);
+  toggleTitle();
+  countdown();
+  displayQuestion(0);
+}
+
+function countdown() {
+  timeRemain = 75;
+  timer.textContent = "Time: " + timeRemain;
+
+  var timeInterval = setInterval(function () {
+    timer.textContent = "Time: " + timeRemain;
+    timeRemain--;
+    if (timeRemain <= 0) {
+      timer.textContent = "Time: 00";
+      clearInterval(timeInterval);
+    }
+  }, 1000);
 }
 
 startButton.addEventListener("click", startGame);
 scoreMenu.addEventListener("click", showScores);
+
+// Clicking an answer
+quizShow.addEventListener("click", function (event) {
+  var element = event.target;
+  // Checking if what clicked is a choice
+  if (element.matches("li")) {
+    // if the correct answer is chosen
+    if (element.textContent === questions[questionNo].correctAnswer) {
+      // move to the next question
+      nextQuestion();
+    } else {
+      // reduce remaining time
+      timeRemain -= 10;
+      // move to the next question
+      nextQuestion();
+    }
+  }
+});
 
 var questions = [
   {
