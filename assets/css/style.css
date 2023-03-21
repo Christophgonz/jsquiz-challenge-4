@@ -29,6 +29,18 @@ main {
   text-align: center;
 }
 
+#questions {
+  width: 50%;
+}
+
+#questions h1 {
+  font-size: 40px;
+}
+
+#questions ol {
+  padding-inline-start: 0px;
+}
+
 #questions li {
   background-color: purple;
   border: 1px solid darkslategray;

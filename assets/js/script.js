@@ -60,6 +60,7 @@ function nextQuestion() {
   if (questionNo < questions.length) {
     displayQuestion(questionNo);
   } else {
+    gameEnd();
     questionNo = 0;
     timeRemain = 0;
     toggleTitle();
@@ -86,6 +87,12 @@ function countdown() {
   }, 1000);
 }
 
+function gameEnd() {
+  endScore.initials = prompt("Please enter your initials");
+  endScore.finalScore = timeRemain;
+  console.log(endScore);
+}
+
 startButton.addEventListener("click", startGame);
 scoreMenu.addEventListener("click", showScores);
 
@@ -107,11 +114,16 @@ quizShow.addEventListener("click", function (event) {
   }
 });
 
+var endScore = {
+  initials: "",
+  finalScore: 0,
+};
+
 var questions = [
   {
-    title: "0",
-    choices: ["yes", "no"],
-    correctAnswer: "",
+    title: "Commonly used data types do NOT include",
+    choices: ["number", "String", "boolean", "alerts"],
+    correctAnswer: "alerts",
   },
   {
     title: "1",
